@@ -28,24 +28,28 @@ jobs:
           - name: ubuntu-20.04 - clang 10
             os: ubuntu-20.04
             cc_compiler: clang-10
-            cxx_compiler: clang-10++
+            cxx_compiler: clang++-10
           - name: ubuntu-22.04 - clang 13
             os: ubuntu-22.04
             cc_compiler: clang-13
-            cxx_compiler: clang-13++
+            cxx_compiler: clang++-13
           - name: ubuntu-24.04 - clang 16
             os: ubuntu-24.04
             cc_compiler: clang-16
-            cxx_compiler: clang-16++
+            cxx_compiler: clang++-16
 
-          # - name: ubuntu-20.04 - gcc
-          #   os: ubuntu-20.04
-          #   cc_compiler: gcc
-          #   cxx_compiler: g++
-          # - name: ubuntu-22.04 - gcc
-          #   os: ubuntu-22.04
-          #   cc_compiler: gcc
-          #   cxx_compiler: g++
+          - name: ubuntu-20.04 - gcc 10
+            os: ubuntu-20.04
+            cc_compiler: gcc-10
+            cxx_compiler: g++-10
+          - name: ubuntu-22.04 - gcc 10
+            os: ubuntu-22.04
+            cc_compiler: gcc-10
+            cxx_compiler: g++-10
+          - name: ubuntu-24.04 - gcc 12
+            os: ubuntu-24.04
+            cc_compiler: gcc-12
+            cxx_compiler: g++-12
 
           # - name: windows-2019 - msvc
           #   os: windows-2019
@@ -84,8 +88,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt install ninja-build
-          ls /usr/bin
-          which clang
           echo "CC=${{ matrix.cc_compiler }}" >> $GITHUB_ENV
           echo "CXX=${{ matrix.cxx_compiler }}" >> $GITHUB_ENV
 
