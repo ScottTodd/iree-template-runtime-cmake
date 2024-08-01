@@ -38,21 +38,21 @@ jobs:
             cc_compiler: clang-16
             cxx_compiler: clang-16++
 
-          - name: ubuntu-20.04 - gcc
-            os: ubuntu-20.04
-            cc_compiler: gcc
-            cxx_compiler: g++
-          - name: ubuntu-22.04 - gcc
-            os: ubuntu-22.04
-            cc_compiler: gcc
-            cxx_compiler: g++
+          # - name: ubuntu-20.04 - gcc
+          #   os: ubuntu-20.04
+          #   cc_compiler: gcc
+          #   cxx_compiler: g++
+          # - name: ubuntu-22.04 - gcc
+          #   os: ubuntu-22.04
+          #   cc_compiler: gcc
+          #   cxx_compiler: g++
 
-          - name: windows-2019 - msvc
-            os: windows-2019
-            compiler: msvc
-          - name: windows-2022 - msvc
-            os: windows-2022
-            compiler: msvc
+          # - name: windows-2019 - msvc
+          #   os: windows-2019
+          #   compiler: msvc
+          # - name: windows-2022 - msvc
+          #   os: windows-2022
+          #   compiler: msvc
 
           # As of IREE commit 44c93468, Windows only reliably supports MSVC and
           # clang-cl. clang and gcc builds could be added with a few changes.
@@ -84,6 +84,8 @@ jobs:
         run: |
           sudo apt update
           sudo apt install ninja-build
+          ls /usr/bin
+          which clang
           echo "CC=${{ matrix.cc_compiler }}" >> $GITHUB_ENV
           echo "CXX=${{ matrix.cxx_compiler }}" >> $GITHUB_ENV
 
