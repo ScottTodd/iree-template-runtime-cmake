@@ -51,6 +51,19 @@ jobs:
             cc_compiler: gcc-12
             cxx_compiler: g++-12
 
+          - name: macos-12 - clang 14
+            os: macos-12
+            cc_compiler: clang-14
+            cxx_compiler: clang++-14
+          - name: macos-13 - clang 14
+            os: macos-13
+            cc_compiler: clang-14
+            cxx_compiler: clang++-14
+          - name: macos-14 - clang 14
+            os: macos-14
+            cc_compiler: clang-14
+            cxx_compiler: clang++-14
+
           - name: windows-2019 - msvc
             os: windows-2019
             compiler: msvc
@@ -83,7 +96,7 @@ jobs:
       # OS specific setup
       ###########################################################################
 
-      - name: Install dependencies (Linux)
+      - name: (Linux) Install dependencies
         if: contains(matrix.os, 'ubuntu')
         run: |
           sudo apt update
@@ -91,18 +104,25 @@ jobs:
           echo "CC=${{ matrix.cc_compiler }}" >> $GITHUB_ENV
           echo "CXX=${{ matrix.cxx_compiler }}" >> $GITHUB_ENV
 
-      - name: Configure MSVC (Windows)
+      - name: (macOS) Install dependencies
+        if: contains(matrix.os, 'macos')
+        run: |
+          brew install ninja
+          echo "CC=${{ matrix.cc_compiler }}" >> $GITHUB_ENV
+          echo "CXX=${{ matrix.cxx_compiler }}" >> $GITHUB_ENV
+
+      - name: (Windows) Configure MSVC
         if: contains(matrix.os, 'windows') && contains(matrix.compiler, 'msvc')
         uses: ilammy/msvc-dev-cmd@v1.13.0
 
-      - name: Configure clang (Windows)
+      - name: (Windows) Configure clang
         if: contains(matrix.os, 'windows') && contains(matrix.compiler, 'clang')
         run: |
           choco install ninja --yes
           echo "CC='C:\Program Files\LLVM\bin\clang.exe'" >> $GITHUB_ENV
           echo "CXX='C:\Program Files\LLVM\bin\clang++.exe'" >> $GITHUB_ENV
 
-      - name: Configure GCC (Windows)
+      - name: (Windows) Configure GCC
         if: contains(matrix.os, 'windows') && contains(matrix.compiler, 'gcc')
         uses: egor-tensin/setup-mingw@v2
         with:
