@@ -51,12 +51,12 @@ jobs:
             cc_compiler: gcc-12
             cxx_compiler: g++-12
 
-          # - name: windows-2019 - msvc
-          #   os: windows-2019
-          #   compiler: msvc
-          # - name: windows-2022 - msvc
-          #   os: windows-2022
-          #   compiler: msvc
+          - name: windows-2019 - msvc
+            os: windows-2019
+            compiler: msvc
+          - name: windows-2022 - msvc
+            os: windows-2022
+            compiler: msvc
 
           # As of IREE commit 44c93468, Windows only reliably supports MSVC and
           # clang-cl. clang and gcc builds could be added with a few changes.
@@ -113,14 +113,14 @@ jobs:
       ###########################################################################
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5.1.1
         with:
           python-version: "3.11"
       - name: Install IREE compiler
         run: |
           python -m pip install iree-compiler==20240724.964
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.7
       - name: Initialize submodules
         run: |
           git \
